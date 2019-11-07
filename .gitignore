@@ -5,4 +5,4 @@
 *.class
 *.log
 *.jar
-
+/target/
