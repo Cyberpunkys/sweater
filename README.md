@@ -1,5 +1,5 @@
 # sweater
 testing Spring Boot framework  
-##Prerequisites  
+## Prerequisites  
 * JDK 1.8+
 * postgreSQL 12.0  
