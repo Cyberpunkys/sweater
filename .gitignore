@@ -116,3 +116,4 @@ hs_err_pid*
 target/
 /EE project.iml
 /.idea/
+*.iml
