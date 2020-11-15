@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 @Entity //Сущность, которую необходимо сохранять в БД
 public class Message {
+
     @Id //Поле будет индентификатором
     @GeneratedValue(strategy= GenerationType.AUTO) //auto generate
     private Integer id;
@@ -46,6 +47,5 @@ public class Message {
     public void setTag(String tag) {
         this.tag = tag;
     }
-
 
 }

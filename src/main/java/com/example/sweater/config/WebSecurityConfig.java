@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity //класс, который при старте приложения конфигурирует Web Security
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private DataSource dataSource; //генерируется Spring'ом
+    private DataSource dataSource; //генерируется Spring'ом DI
 
     /*
         передается на вход объект, и мы в нем включаем авторизацию, главной странице ("/") даем полный доступ, а для

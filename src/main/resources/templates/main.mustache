@@ -8,8 +8,9 @@
         </form>
     </div>
 
+    <!-- Ввод данных в БД -->
     <div>
-        <form method="post"> <!-- Ввод данных в БД -->
+        <form method="post">
             <input type="text" name="text" placeholder="Введите сообщение">
             <input type="text" name="tag" placeholder="Тэг">
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
@@ -17,14 +18,16 @@
         </form>
     </div>
 
-    <div>Список сообщений</div> <!-- Поиск сообшений в БД по тегу -->
+    <!-- Фильтр сообшений в БД по тегу -->
+    <div>Список сообщений</div>
     <form method="post" action="filter">
         <input type="text" name="filter">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <button type="submit">Найти</button>
     </form>
 
-    {{#messages}} <!-- список сообщений в mustache -->
+    <!-- список сообщений в mustache -->
+    {{#messages}}
         <div>
             <b>{{id}}</b>
             <span>{{text}}</span>

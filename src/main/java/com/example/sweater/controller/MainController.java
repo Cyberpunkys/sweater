@@ -30,8 +30,8 @@ public class MainController {
 
     @PostMapping("/main") //mapping с методом POST (чаще всего <form>)
     public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
 
+        Message message = new Message(text, tag);
         messageRepo.save(message); //сохраняем в БД
 
         Iterable<Message> messages = messageRepo.findAll(); //выводим данные из БД после сохранения
