@@ -1,5 +1,6 @@
 package com.example.sweater.config;
 
+import com.example.sweater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,13 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity //класс, который при старте приложения конфигурирует Web Security
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
-    private DataSource dataSource; //генерируется Spring'ом DI
+    private UserService userService;
 
     /*
         передается на вход объект, и мы в нем включаем авторизацию, главной странице ("/") даем полный доступ, а для
@@ -39,10 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance()) //deprecated мы заменим позже
-                .usersByUsernameQuery("select username, password, active from usr where username=?") //получить юзера по его имени
-                .authoritiesByUsernameQuery("select u.username, ur.roles from usr u inner join user_role ur on u.id = ur.user_id where u.username=?"); //получить список юзеров с их ролями
+        auth.userDetailsService(userService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance()); //deprecated мы заменим позже
     }
 }
