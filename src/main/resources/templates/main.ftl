@@ -1,9 +1,10 @@
-<#import "parts/common.ftlh" as c>
-<#import "parts/login.ftlh" as l>
+<#import "parts/common.ftl" as c>
+<#import "parts/login.ftl" as l>
 
 <@c.page>
     <div>
         <@l.logout/>
+        <span><a href="/user">Users list</a></span>
     </div>
 
     <!-- Ввод данных в БД -->
