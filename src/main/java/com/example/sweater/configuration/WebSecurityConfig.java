@@ -19,8 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
 
     /*
-        передается на вход объект, и мы в нем включаем авторизацию, главной странице ("/") даем полный доступ, а для
-        всех остальных запросов требуем авторизацию.
+        передается на вход объект, и мы в нем включаем авторизацию, главной странице ("/"), регистрации, static контент
+        даем полный доступ, а для всех остальных запросов требуем авторизацию.
         включаем formLogin(), указываем loginPage на mapping ("/login"), разрешаем этим пользоваться всем
         включаем logout(), разрешаем этим пользоваться всем
      */
@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/registration").permitAll()
+                    .antMatchers("/", "/registration", "/static/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
