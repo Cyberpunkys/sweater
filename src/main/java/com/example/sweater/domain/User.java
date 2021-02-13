@@ -16,6 +16,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private boolean active;
+    private String email;
+    private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER) //EAGER or LAZY
     //данное поле будет храниться в отдельной таблице, для который мы не описывали mapping
@@ -27,6 +29,8 @@ public class User implements UserDetails {
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
+
+    // Getters & Setters
 
     public Long getId() {
         return id;
@@ -91,5 +95,21 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 }
