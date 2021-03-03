@@ -24,11 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder(8);
-    }
-
     /*
         передается на вход объект, и мы в нем включаем авторизацию, главной странице ("/"), регистрации, static контент
         даем полный доступ, а для всех остальных запросов требуем авторизацию.
