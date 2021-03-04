@@ -38,6 +38,10 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found!");
         }
 
+        if (user.getActivationCode() != null) {
+            throw new UsernameNotFoundException("Аккаунт не активирован по email!");
+        }
+
         return user;
     }
 
