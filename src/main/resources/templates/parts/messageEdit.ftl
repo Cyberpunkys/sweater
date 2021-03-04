@@ -1,6 +1,6 @@
 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample"
    role="button" aria-expanded="false" aria-controls="collapseExample">
-    Открыть редактор сообщений
+    Редактор сообщений
 </a>
 <div class="collapse <#if message??>show</#if>" id="collapseExample">
     <div class="form-group mt-3">
