@@ -29,8 +29,8 @@
                     <label class="custom-file-label" for="customFile">Выбрать файл</label>
                 </div>
             </div>
-            <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <input type="hidden" name="id" value="<#if message??>${message.id}</#if>">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <input type="hidden" name="id" value="<#if message??>${message.id!"null or missing"}</#if>"/>
             <div class="form-group">
                 <button class="btn btn-primary" type="submit">Сохранить</button>
             </div>
