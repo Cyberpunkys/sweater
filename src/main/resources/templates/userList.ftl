@@ -3,11 +3,11 @@
 <@c.page>
     <h2>List of users</h2>
 
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Role</th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
             <th></th>
         </tr>
         </thead>
