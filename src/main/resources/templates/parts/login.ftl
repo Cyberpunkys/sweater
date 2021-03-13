@@ -6,7 +6,7 @@
             <label class="col-sm-2 col-form-label">Username:</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control ${(usernameError??)?string('is-invalid', '')}"
-                       name="username" value="<#if user??>${user.username}</#if>" placeholder="Username"/>
+                       name="username" value="<#if user??>${user.username}</#if>" placeholder="Username" />
                 <#if usernameError??>
                     <div class="invalid-feedback">
                         ${usernameError}
@@ -18,7 +18,7 @@
             <label class="col-sm-2 col-form-label">Password:</label>
             <div class="col-sm-6">
                 <input type="password" class="form-control ${(passwordError??)?string('is-invalid', '')}"
-                       name="password" placeholder="Password"/>
+                       name="password" placeholder="Password" />
                 <#if passwordError??>
                     <div class="invalid-feedback">
                         ${passwordError}
@@ -31,7 +31,7 @@
                 <label class="col-sm-2 col-form-label">Password:</label>
                 <div class="col-sm-6">
                     <input type="password" class="form-control ${(password2Error??)?string('is-invalid', '')}"
-                           name="password2" placeholder="Confirm password"/>
+                           name="password2" placeholder="Confirm password" />
                     <#if password2Error??>
                         <div class="invalid-feedback">
                             ${password2Error}
@@ -43,7 +43,7 @@
                 <label class="col-sm-2 col-form-label">Email:</label>
                 <div class="col-sm-6">
                     <input type="email" class="form-control ${(emailError??)?string('is-invalid', '')}"
-                           name="email" value="<#if user??>${user.email}</#if>" placeholder="some@some.com"/>
+                           name="email" value="<#if user??>${user.email}</#if>" placeholder="some@some.com" />
                     <#if emailError??>
                         <div class="invalid-feedback">
                             ${emailError}
@@ -60,7 +60,7 @@
                 </#if>
             </div>
         </#if>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
         <#if !isRegisterForm>
             <a href="/registration">Registration</a>
         </#if>
@@ -70,7 +70,7 @@
 
 <#macro logout>
     <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
         <button class="btn btn-primary" type="submit"><#if user??>Sign Out<#else>Login</#if></button>
     </form>
 </#macro>

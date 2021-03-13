@@ -4,7 +4,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <form method="get" action="/main" class="form-inline">
-                <input type="text" name="filter" class="form-control" value="${filter!}" placeholder="Search by #Tag">
+                <input type="text" name="filter" class="form-control" value="${filter!}" placeholder="Search by #Tag" />
                 <button class="btn btn-primary ml-2" type="submit">Search</button>
             </form>
         </div>

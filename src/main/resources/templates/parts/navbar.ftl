@@ -19,7 +19,7 @@
                     <a class="nav-link" href="/main">Messages</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user-messages/${currentUserId}">Мои посты</a>
+                    <a class="nav-link" href="/user-messages/${currentUserId}">Мой канал</a>
                 </li>
             </#if>
             <#if isAdmin>
