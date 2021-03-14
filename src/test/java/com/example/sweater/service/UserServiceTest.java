@@ -4,16 +4,10 @@ import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.repository.UserRepo;
 import org.hamcrest.CoreMatchers;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
 
@@ -21,11 +15,11 @@ import static org.junit.Assert.*;
 
 public class UserServiceTest {
 
-    private UserRepo userRepo = Mockito.mock(UserRepo.class);
-    private PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
-    private MailSenderService mailSenderService = Mockito.mock(MailSenderService.class);
+    private final UserRepo userRepo = Mockito.mock(UserRepo.class);
+    private final PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+    private final MailSenderService mailSenderService = Mockito.mock(MailSenderService.class);
 
-    private UserService userService = new UserService(userRepo, mailSenderService, passwordEncoder);
+    private final UserService userService = new UserService(userRepo, mailSenderService, passwordEncoder);
 
     @Test
     public void addUserTest() {
