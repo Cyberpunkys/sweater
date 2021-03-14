@@ -5,6 +5,10 @@ import com.example.sweater.domain.User;
 import com.example.sweater.repository.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,30 +31,35 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
-@Controller //Контроллер - это модуль, который по Mapping (пути) слушает запросы от юзера и возвращает данные
+@Controller
 public class MainController {
     @Autowired
     private MessageRepo messageRepo;
 
-    @Value("${upload.path}") // вставляет значение в поле из application.properties
+    @Value("${upload.path}")
     private String uploadPath;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model) { //model - то, куда мы складываем данные, которые мы возвращаем юзеру
-        return "greeting"; //В данном случае мы просто возвращаем файл-шаблон
+    public String greeting() {
+        return "greeting";
     }
 
-    @GetMapping("/main") //mapping с методом GET (чаще всего URL)
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Message> messages = messageRepo.findAll();
+    @GetMapping("/main")
+    public String main(
+            @RequestParam(required = false, defaultValue = "") String filter,
+            Model model,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        Page<Message> page;
 
         if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
+            page = messageRepo.findByTag(filter, pageable);
         }  else {
-            messages = messageRepo.findAll();
+            page = messageRepo.findAll(pageable);
         }
 
-        model.addAttribute("messages", messages);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
 
         return "main";
@@ -62,7 +71,8 @@ public class MainController {
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("file") MultipartFile file,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) throws IOException {
         message.setAuthor(user);
 
@@ -72,13 +82,14 @@ public class MainController {
             model.addAttribute("message", message);
         } else {
             ControllerUtils.saveFile(message, file, uploadPath);
-            model.addAttribute("message", null);
 
+            model.addAttribute("message", null);
             messageRepo.save(message);
         }
 
-        Iterable<Message> messages = messageRepo.findAll(); //выводим данные из БД после сохранения
-        model.addAttribute("messages", messages);
+        Page<Message> page = messageRepo.findAll(pageable);
+        model.addAttribute("url", "/main");
+        model.addAttribute("page", page);
 
         return "main";
     }

@@ -5,6 +5,10 @@ import com.example.sweater.domain.User;
 import com.example.sweater.repository.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +36,10 @@ public class MessageEditController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
             Model model,
-            @RequestParam(required = false) Message message
+            @RequestParam(required = false) Message message,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
+        Page<Message> page = messageRepo.findByAuthor(user, pageable);
         Set<Message> messages = user.getMessages();
 
         model.addAttribute("userChannel", user);
@@ -43,6 +49,8 @@ public class MessageEditController {
         model.addAttribute("messages", messages);
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
+        model.addAttribute("url", "/user-messages/" + user.getId());
+        model.addAttribute("page", page);
 
         return "userMessages";
     }
@@ -56,7 +64,7 @@ public class MessageEditController {
             @RequestParam("tag") String tag,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        if (message.getAuthor().equals(currentUser)) {
+        if (message != null && message.getAuthor().equals(currentUser)) {
             if (!StringUtils.isEmpty(text)) {
                 message.setText(text);
             }
@@ -68,6 +76,14 @@ public class MessageEditController {
             ControllerUtils.saveFile(message, file, uploadPath);
 
             messageRepo.save(message);
+        } else {
+            Message newMessage = new Message();
+            newMessage.setAuthor(currentUser);
+            newMessage.setText(text);
+            newMessage.setTag(tag);
+            ControllerUtils.saveFile(newMessage, file, uploadPath);
+
+            messageRepo.save(newMessage);
         }
 
         return "redirect:/user-messages/" + user;
