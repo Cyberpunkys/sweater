@@ -3,7 +3,6 @@ package com.example.sweater.service;
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,17 +17,18 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private MailSenderService mailSenderService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepo userRepo;
+    private final MailSenderService mailSenderService;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${myhostname}")
     private String hostname;
+
+    public UserService(UserRepo userRepo, MailSenderService mailSenderService, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
+        this.mailSenderService = mailSenderService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -73,7 +73,7 @@ public class UserService implements UserDetailsService {
                     hostname,
                     user.getActivationCode()
             );
-            mailSenderService.send(user.getEmail(), "Activation Code", message);
+            mailSenderService.send(user.getEmail(), "Activation code", message);
         }
     }
 
