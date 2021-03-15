@@ -12,6 +12,7 @@
               crossorigin="anonymous"
         />
         <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script src="https://kit.fontawesome.com/c22916563a.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <#include "navbar.ftl">
