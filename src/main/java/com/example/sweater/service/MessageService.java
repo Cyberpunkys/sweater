@@ -22,7 +22,7 @@ public class MessageService {
         }
     }
 
-    public Page<MessageDto> messageListForUser(Pageable pageable, User currentUser, User author) {
+    public Page<MessageDto> messageListForUser(Pageable pageable, User author, User currentUser) {
         return messageRepo.findByUser(pageable, author, currentUser);
     }
 }
