@@ -28,7 +28,7 @@
         </div>
         <#if isRegisterForm>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Password:</label>
+                <label class="col-sm-2 col-form-label">Confirm password:</label>
                 <div class="col-sm-6">
                     <input type="password" class="form-control ${(password2Error??)?string('is-invalid', '')}"
                            name="password2" placeholder="Confirm password" />

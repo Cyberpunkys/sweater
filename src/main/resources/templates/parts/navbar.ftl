@@ -11,25 +11,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
             <#if user??>
                 <li class="nav-item">
-                    <a class="nav-link" href="/main">Messages</a>
+                    <a class="nav-link" href="/main">Все посты</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/user-messages/${currentUserId}">Мой канал</a>
                 </li>
             </#if>
+            <#if user??>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/profile">Мой профиль</a>
+                </li>
+            </#if>
             <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</a>
-                </li>
-            </#if>
-            <#if user??>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user/profile">My profile</a>
                 </li>
             </#if>
         </ul>
