@@ -5,7 +5,6 @@ import com.example.sweater.domain.User;
 import com.example.sweater.domain.dto.MessageDto;
 import com.example.sweater.repository.MessageRepo;
 import com.example.sweater.service.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,14 +25,17 @@ import java.io.IOException;
 @Controller
 public class MessageEditController {
 
-    @Autowired
-    MessageRepo messageRepo;
+    private final MessageRepo messageRepo;
 
-    @Autowired
-    MessageService messageService;
+    private final MessageService messageService;
 
     @Value("${upload.path}")
     private String uploadPath;
+
+    public MessageEditController(MessageRepo messageRepo, MessageService messageService) {
+        this.messageRepo = messageRepo;
+        this.messageService = messageService;
+    }
 
     @GetMapping("/user-messages/{author}")
     public String userMessages(
@@ -67,11 +69,11 @@ public class MessageEditController {
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         if (message != null && message.getAuthor().equals(currentUser)) {
-            if (!StringUtils.isEmpty(text)) {
+            if (StringUtils.hasText(text)) {
                 message.setText(text);
             }
 
-            if (!StringUtils.isEmpty(tag)) {
+            if (StringUtils.hasText(tag)) {
                 message.setTag(tag);
             }
 

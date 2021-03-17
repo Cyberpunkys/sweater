@@ -5,7 +5,6 @@ import com.example.sweater.domain.User;
 import com.example.sweater.domain.dto.MessageDto;
 import com.example.sweater.repository.MessageRepo;
 import com.example.sweater.service.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,14 +29,17 @@ import java.util.Set;
 @Controller
 public class MessageController {
 
-    @Autowired
-    private MessageRepo messageRepo;
+    private final MessageRepo messageRepo;
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @Value("${upload.path}")
     private String uploadPath;
+
+    public MessageController(MessageRepo messageRepo, MessageService messageService) {
+        this.messageRepo = messageRepo;
+        this.messageService = messageService;
+    }
 
     @GetMapping("/")
     public String greeting() {

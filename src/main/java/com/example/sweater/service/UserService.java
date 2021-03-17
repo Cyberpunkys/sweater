@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService {
     }
 
     private void sendMessage(User user) {
-        if (!StringUtils.isEmpty(user.getEmail())) {
+        if (StringUtils.hasText(user.getEmail())) {
             String message = String.format(
                     "Hello, %s!\n Welcome to Sweater. Please activate your account " +
                     "by following link:\n http://%s/activate/%s",
