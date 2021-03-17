@@ -117,3 +117,6 @@ target/
 /.idea/
 *.iml
 /uploads/
+/scripts/deploy.sh
+/src/main/resources/application-dev.properties
+/src/test/resources/application-test.properties
