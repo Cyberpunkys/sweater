@@ -1,5 +1,5 @@
 # sweater
 Learning Spring Boot framework  
-## Prerequisites  
-* Java 1.8
+## Built with 
+* Java 11
 * PostgreSQL 12.0  
