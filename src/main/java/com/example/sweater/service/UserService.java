@@ -120,12 +120,12 @@ public class UserService implements UserDetailsService {
         if (isEmailChanged) {
             user.setEmail(email);
 
-            if (!StringUtils.isEmpty(email)) {
+            if (StringUtils.hasText(email)) {
                 user.setActivationCode(UUID.randomUUID().toString());
             }
         }
 
-        if (!StringUtils.isEmpty(password)) {
+        if (StringUtils.hasText(password)) {
             user.setPassword(passwordEncoder.encode(password));
         }
 
