@@ -14,7 +14,8 @@ public interface MessageRepo extends CrudRepository<Message, Long> {
     @Query("select new com.example.sweater.domain.dto.MessageDto(" +
             "   m, " +
             "   count(ml), " +
-            "   (sum(case when ml = :user then 1 else 0 end) > 0)" +
+            "   (sum(case when ml = :user then 1 else 0 end) > 0)," +
+            "   m.creationDate" +
             ") " +
             "from Message m left join m.likes ml " +
             "group by m")
@@ -23,7 +24,8 @@ public interface MessageRepo extends CrudRepository<Message, Long> {
     @Query("select new com.example.sweater.domain.dto.MessageDto(" +
             "   m, " +
             "   count(ml), " +
-            "   (sum(case when ml = :user then 1 else 0 end) > 0)" +
+            "   (sum(case when ml = :user then 1 else 0 end) > 0)," +
+            "   m.creationDate" +
             ") " +
             "from Message m left join m.likes ml " +
             "where m.tag = :tag " +
@@ -33,7 +35,8 @@ public interface MessageRepo extends CrudRepository<Message, Long> {
     @Query("select new com.example.sweater.domain.dto.MessageDto(" +
             "   m, " +
             "   count(ml), " +
-            "   (sum(case when ml = :user then 1 else 0 end) > 0)" +
+            "   (sum(case when ml = :user then 1 else 0 end) > 0)," +
+            "   m.creationDate" +
             ") " +
             "from Message m left join m.likes ml " +
             "where m.author = :author " +

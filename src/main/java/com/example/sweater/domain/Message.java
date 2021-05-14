@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +45,9 @@ public class Message {
     private Set<User> likes = new HashSet<>();
 
     private String filename;
+
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
 
     public String getAuthorName() {
         return MessageHelper.getAuthorName(author);

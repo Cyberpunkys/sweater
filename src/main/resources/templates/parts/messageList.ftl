@@ -11,14 +11,15 @@
             </#if>
             <div class="m-2">
                 <span>${message.text}</span><br/>
-                <i>#${message.tag}</i>
+                <b>#${message.tag}</b><br/>
+                <i>${message.creationDate}</i>
             </div>
             <div class="card-footer text-muted container">
                 <div class="row">
                     <a class="col align-self-center" href="/user-messages/${message.author.id}">
                         ${message.authorName}
                     </a>
-                    <a class="col align-self-center" href="/messages/${message.id}/like">
+                    <a class="col align-self-center" href="/messages/${message.id}/like"> <!-- /user-messages ?? -->
                         <#if message.meLiked>
                             <i class="fas fa-heart"></i>
                         <#else>

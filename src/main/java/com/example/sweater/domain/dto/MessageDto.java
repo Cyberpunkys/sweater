@@ -4,6 +4,8 @@ import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
 import com.example.sweater.domain.util.MessageHelper;
 
+import java.time.LocalDateTime;
+
 public class MessageDto {
 
     private final Long id;
@@ -13,8 +15,9 @@ public class MessageDto {
     private final String filename;
     private final Long likes;
     private final Boolean meLiked;
+    private final LocalDateTime creationDate;
 
-    public MessageDto(Message message, Long likes, Boolean meLiked) {
+    public MessageDto(Message message, Long likes, Boolean meLiked, LocalDateTime creationDate) {
         this.id = message.getId();
         this.text = message.getText();
         this.tag = message.getTag();
@@ -22,6 +25,7 @@ public class MessageDto {
         this.filename = message.getFilename();
         this.likes = likes;
         this.meLiked = meLiked;
+        this.creationDate = creationDate;
     }
 
     public String getAuthorName() {
@@ -56,6 +60,11 @@ public class MessageDto {
         return meLiked;
     }
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+
     @Override
     public String toString() {
         return "MessageDto{" +
@@ -63,6 +72,7 @@ public class MessageDto {
                 ", author=" + author +
                 ", likes=" + likes +
                 ", meLiked=" + meLiked +
+                ", creationDate=" + creationDate +
                 '}';
     }
 }

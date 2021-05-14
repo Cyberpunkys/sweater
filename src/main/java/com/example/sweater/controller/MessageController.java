@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,15 +74,15 @@ public class MessageController {
     ) throws IOException {
         message.setAuthor(user);
 
-        if (bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
+            ControllerUtils.saveFile(message, file, uploadPath);
+            message.setCreationDate(LocalDateTime.now());
+            model.addAttribute("message", null);
+            messageRepo.save(message);
+        } else {
             Map<String, String> errorMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorMap);
             model.addAttribute("message", message);
-        } else {
-            ControllerUtils.saveFile(message, file, uploadPath);
-
-            model.addAttribute("message", null);
-            messageRepo.save(message);
         }
 
         Page<MessageDto> page = messageRepo.findAll(pageable, user);
