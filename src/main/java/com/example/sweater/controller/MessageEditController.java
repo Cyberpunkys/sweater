@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Controller
 public class MessageEditController {
@@ -85,6 +86,7 @@ public class MessageEditController {
             newMessage.setAuthor(currentUser);
             newMessage.setText(text);
             newMessage.setTag(tag);
+            newMessage.setCreationDate(LocalDateTime.now());
             ControllerUtils.saveFile(newMessage, file, uploadPath);
 
             messageRepo.save(newMessage);
